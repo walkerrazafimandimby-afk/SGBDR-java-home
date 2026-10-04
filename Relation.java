@@ -72,4 +72,58 @@ public class Relation {
             System.out.println("\n");
         }
     }
+
+    public void NoDoublon() {
+        int nbrIndividu = this.individu.size();
+
+        for (int i = 0; i < nbrIndividu; i++) {
+
+            Object[] toCompare = this.individu.get(i);
+            for (int j = i + 1; j < nbrIndividu; j++) {
+                Object[] toMe = this.individu.get(j);
+                if (Arrays.equals(toCompare, toMe)) {
+                    this.individu.remove(j);
+                    nbrIndividu--;
+                    j--;
+                }
+            }
+        }
+
+    }
+
+    public Relation project(Attribut[] toproject) {
+        Relation toreturn = new Relation("default", toproject);
+
+        int nbrIndividu = this.individu.size();
+        int nbrAttribut = this.attributs.length;
+        int[] index = new int[toproject.length];
+
+        for (int j = 0; j < toproject.length; j++) {
+            Attribut projection = toproject[j];
+            for (int i = 0; i < nbrAttribut; i++) {
+                Attribut attribut = this.attributs[i];
+                if (attribut.equals(projection)) {
+                    index[j] = i;
+                    break;
+                }
+            }
+        }
+
+        for (int k = 0; k < nbrIndividu; k++) {
+            Object[] concern = this.individu.get(k);
+            Object[] ajout = new Object[toproject.length];
+            int b = 0;
+            for (int o = 0; o < toproject.length; o++) {
+                ajout[b] = concern[index[o]];
+                System.out.print(String.valueOf(ajout[b]) + " / ");
+                if (b == toproject.length - 1) {
+                    System.out.println("\n");
+                }
+                b++;
+            }
+            toreturn.add(ajout);
+        }
+        toreturn.NoDoublon();
+        return toreturn;
+    }
 }

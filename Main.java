@@ -16,5 +16,7 @@ public class Main {
         etudiant.add(new Object[]{"ROBSON RADO", "Misaina Henintsoa", new Date(2008, 1, 3), "m"});
 
         etudiant.selectEtoile();
+
+        etudiant.project(new Attribut[]{nom, prenom});
     }
 }
